@@ -5,13 +5,19 @@ buildscript {
             name = "forge"
             url = "https://files.minecraftforge.net/maven"
         }
+        maven {
+            name = "sponge"
+            url = "https://repo.spongepowered.org/maven"
+        }
     }
     dependencies {
         classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
+        classpath "org.spongepowered:mixingradle:0.6-SNAPSHOT"
     }
 }
 
 apply plugin: "net.minecraftforge.gradle.forge"
+apply plugin: "org.spongepowered.mixin"
 
 version = modVersion
 group = modGroup
@@ -28,14 +34,36 @@ minecraft {
     // simply re-run your setup task after changing the mappings to update your workspace.
     mappings = project.mcpVersion
     coreMod = "xyz.ajp.makezoomzoom.asm.MZZLoadingPlugin"
+    def args = [
+            "-Dmixin.hotSwap=true",
+            "-Dmixin.checks.interfaces=true"
+    ]
+    clientJvmArgs.addAll(args)
+    serverJvmArgs.addAll(args)
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
 repositories {
     mavenCentral()
+    maven { url "http://repo.spongepowered.org/maven" }
+}
+
+configurations {
+    shade
+    compile.extendsFrom shade
 }
 
 dependencies {
+    shade("org.spongepowered:mixin:0.7.8-SNAPSHOT") {
+        exclude module: "asm-commons"
+        exclude module: "asm-tree"
+        exclude module: "launchwrapper"
+        exclude module: "guava"
+        exclude module: "log4j-core"
+        exclude module: "gson"
+        exclude module: "commons-io"
+    }
+    shade "org.jooq:joor-java-8:0.9.7"
 }
 
 processResources {
@@ -61,6 +89,11 @@ jar {
     manifest {
         attributes 'FMLCorePlugin': 'xyz.ajp.makezoomzoom.asm.MZZLoadingPlugin'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
+    configurations.shade.each { dep ->
+        from(project.zipTree(dep)) {
+            exclude 'META-INF', 'META-INF/**', 'LICENSE.txt'
+        }
     }
 }
 

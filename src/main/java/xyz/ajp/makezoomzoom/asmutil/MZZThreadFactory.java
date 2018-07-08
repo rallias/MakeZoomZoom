@@ -1,4 +1,4 @@
-package xyz.ajp.makezoomzoom;
+package xyz.ajp.makezoomzoom.asmutil;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;

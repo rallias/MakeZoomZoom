@@ -11,7 +11,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import xyz.ajp.makezoomzoom.MZZThreadFactory;
+import xyz.ajp.makezoomzoom.asmutil.MZZThreadFactory;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.Queue;
 import java.util.concurrent.*;
 
 public class TransposerRecipeCategoryExtract {
-    private static ExecutorService executorService = Executors.newCachedThreadPool(new MZZThreadFactory("JEI CoFH Transposer Extract"));
+    private static ExecutorService executorService = Executors.newFixedThreadPool(64, new MZZThreadFactory("JEI CoFH Transposer Extract"));
 
     public static List<TransposerRecipeWrapper> getRecipes(IGuiHelper guiHelper, IIngredientRegistry ingredientRegistry) {
         Queue<Future<TransposerRecipeWrapper>> wrapperFutures = new ArrayDeque<>(64);
@@ -60,6 +60,8 @@ public class TransposerRecipeCategoryExtract {
                 e.printStackTrace();
             }
         }
+
+        executorService.shutdown();
 
         return recipes;
     }

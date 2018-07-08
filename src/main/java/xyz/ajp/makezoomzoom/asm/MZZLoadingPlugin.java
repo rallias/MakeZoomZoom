@@ -1,6 +1,8 @@
 package xyz.ajp.makezoomzoom.asm;
 
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
+import org.spongepowered.asm.launch.MixinBootstrap;
+import org.spongepowered.asm.mixin.Mixins;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -9,6 +11,11 @@ import java.util.Map;
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 @IFMLLoadingPlugin.TransformerExclusions({"xyz.ajp.makezoomzoom.asm", "xyz.ajp.makezoomzoom.asmutil", "xyz.ajp.makezoomzoom.asmreimpl"})
 public class MZZLoadingPlugin implements IFMLLoadingPlugin {
+    public MZZLoadingPlugin() {
+        MixinBootstrap.init();
+        Mixins.addConfiguration("mixins.mzz.json");
+    }
+
     /**
      * Return a list of classes that implements the IClassTransformer interface
      *

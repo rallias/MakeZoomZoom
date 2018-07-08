@@ -10,7 +10,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
-import xyz.ajp.makezoomzoom.MZZThreadFactory;
+import xyz.ajp.makezoomzoom.asmutil.MZZThreadFactory;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.concurrent.*;
 
 public class BottlerRecipeMaker {
-    private static ExecutorService executorService = Executors.newCachedThreadPool(new MZZThreadFactory("JEI Forestry Bottler"));
+    private static ExecutorService executorService = Executors.newFixedThreadPool(64, new MZZThreadFactory("JEI Forestry Bottler"));
 
     public static List<BottlerRecipeWrapper> getBottlerRecipes(IIngredientRegistry ingredientRegistry) {
         Deque<Future<List<BottlerRecipeWrapper>>> wrapperFutures = new ArrayDeque<>(64);
@@ -83,6 +83,9 @@ public class BottlerRecipeMaker {
                 e.printStackTrace();
             }
         }
+
+        executorService.shutdown();
+
 
         return recipes;
     }
