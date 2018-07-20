@@ -89,12 +89,18 @@ jar {
     manifest {
         attributes 'FMLCorePlugin': 'xyz.ajp.makezoomzoom.asm.MZZLoadingPlugin'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
+        attributes "TweakClass": "org.spongepowered.asm.launch.MixinTweaker"
+        attributes "ForceLoadAsMod": "true"
     }
     configurations.shade.each { dep ->
         from(project.zipTree(dep)) {
-            exclude 'META-INF', 'META-INF/**', 'LICENSE.txt'
+            exclude 'LICENSE.txt', 'META-INF/README.txt', 'META-INF/LICENSE.txt', 'META-INF/maven/**'
         }
     }
+}
+
+mixin {
+    add sourceSets.main, "mixins.mzz.refmap.json"
 }
 
 def keystoreFile = new File('makezoomzoom.jks')
@@ -114,9 +120,16 @@ task signJar(dependsOn: 'jar', description: 'Sign jar', group: 'Build') {
                 keystore: "${keystoreFile.absolutePath}",
                 storepass: keystorepass,
                 verbose: true,
-                preservelastmodified: true
+                preservelastmodified: true,
+                tsaurl: "http://timestamp.digicert.com"
         )
     }
 }
 
 build.dependsOn signJar
+
+reobf {
+    jar {
+        mappingType = "SEARGE"
+    }
+}

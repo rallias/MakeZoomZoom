@@ -17,10 +17,6 @@ public class MZZClassTransformer implements IClassTransformer {
                 return new TransformBRM().transform(name, transformedName, basicClass);
         }
 
-        if ( transformedName.equals("xyz.ajp.makezoomzoom.test.ProxyMethodTest")) {
-            return new TransformBRM().transform(name, transformedName, basicClass);
-        }
-
         return basicClass;
     }
 }

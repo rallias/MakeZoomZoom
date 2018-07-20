@@ -7,13 +7,11 @@ import org.spongepowered.asm.mixin.Mixins;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-@IFMLLoadingPlugin.SortingIndex(1100)
+@IFMLLoadingPlugin.SortingIndex(-7501)
 @IFMLLoadingPlugin.MCVersion("1.12.2")
-@IFMLLoadingPlugin.TransformerExclusions({"xyz.ajp.makezoomzoom.asm", "xyz.ajp.makezoomzoom.asmutil", "xyz.ajp.makezoomzoom.asmreimpl"})
+@IFMLLoadingPlugin.TransformerExclusions({"xyz.ajp.makezoomzoom.asm", "xyz.ajp.makezoomzoom.asmutil", "xyz.ajp.makezoomzoom.asmreimpl", "xyz.ajp.makezoomzoom.mixin"})
 public class MZZLoadingPlugin implements IFMLLoadingPlugin {
     public MZZLoadingPlugin() {
-        MixinBootstrap.init();
-        Mixins.addConfiguration("mixins.mzz.json");
     }
 
     /**
@@ -23,6 +21,8 @@ public class MZZLoadingPlugin implements IFMLLoadingPlugin {
      */
     @Override
     public String[] getASMTransformerClass() {
+        MixinBootstrap.init();
+        Mixins.addConfiguration("mixins.mzz.core.json");
         return new String[]{"xyz.ajp.makezoomzoom.asm.MZZClassTransformer"};
     }
 

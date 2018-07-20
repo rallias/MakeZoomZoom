@@ -1,0 +1,13 @@
+{
+  "package": "xyz.ajp.makezoomzoom.mixin",
+  "refmap": "mixins.mzz.refmap.json",
+  "required": true,
+  "target": "@env(INIT)",
+  "minVersion": "0.6",
+  "compatibilityLevel": "JAVA_8",
+  "priority": 2,
+  "mixins": [
+    "MixinLoader"
+  ],
+  "verbose": true
+}

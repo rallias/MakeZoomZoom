@@ -41,7 +41,8 @@ public abstract class MixinItemMaterialHeuristics {
 
     @Overwrite
     public static void init(boolean modded) {
-        Executor executor = Executors.newFixedThreadPool(64, new MZZThreadFactory("MZZ - Charset Item Material Heuristics"));
+        System.out.println("MixinItemMaterialHeuristics expressing it's requisite fart bubbles.");
+        Executor executor = Executors.newFixedThreadPool(64, new MZZThreadFactory("Charset Item Material Heuristics"));
         FastRecipeLookup.clearRecipeLists();
         if(modded) {
             FastRecipeLookup.initRecipeLists();

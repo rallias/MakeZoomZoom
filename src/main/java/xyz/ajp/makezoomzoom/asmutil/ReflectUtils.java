@@ -10,9 +10,7 @@ public class ReflectUtils {
             Field f = instance.getClass().getDeclaredField(fieldName);
             ((Field) f).setAccessible(true);
             return f.get(instance);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
 
@@ -26,9 +24,7 @@ public class ReflectUtils {
             Field f = declaredClass.getDeclaredField(fieldName);
             f.setAccessible(true);
             return f.get(null);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
 
@@ -40,9 +36,7 @@ public class ReflectUtils {
             Field f = instance.getClass().getDeclaredField(fieldName);
             f.setAccessible(true);
             f.set(instance, value);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -52,9 +46,7 @@ public class ReflectUtils {
             Field f = instance.getDeclaredField(fieldName);
             f.setAccessible(true);
             f.set(null, value);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
     }

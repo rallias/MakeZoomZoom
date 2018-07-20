@@ -6,7 +6,9 @@ xyz.ajp.makezoomzoom.asmreimpl.forestry.* uses code derived from Forestry, avail
 
 xyz.ajp.makezoomzoom.asmutil.squeek502.* uses code from ASMHelper, available at https://github.com/squeek502/ASMHelper and licensed under The Unlicense.
 
-xyz.ajp.makezoomzoom.mixin.MixinItemMaterialHeuristics uses code from CharsetLib, available at https://github.com/CharsetMC/Charset and licensed under the LGPLv3
+xyz.ajp.makezoomzoom.mixin.MixinItemMaterialHeuristics uses code from CharsetLib, available at https://github.com/CharsetMC/Charset and licensed under the LGPLv3 license.
+
+xyz.ajp.makezoomzoom.mixin.MixinLoader uses code derived from JustEnoughIDs, available at https://github.com/DimensionalDevelopment/JustEnoughIDs and licensed under the MIT license.
 
 MakeZoomZoom automatically includes "jOOR - Fluent Reflection In Java", from https://github.com/jOOQ/jOOR and licensed under the Apache License v2.0
 
