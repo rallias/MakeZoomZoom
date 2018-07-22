@@ -4,6 +4,8 @@ import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModClassLoader;
 import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.versioning.InvalidVersionSpecificationException;
+import net.minecraftforge.fml.common.versioning.VersionRange;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
@@ -19,7 +21,7 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.util.List;
 
-@Mixin(value = Loader.class, priority = 999)
+@Mixin(value = Loader.class)
 public class MixinLoader {
     @Shadow private List<ModContainer> mods;
     @Shadow private ModClassLoader modClassLoader;
@@ -44,6 +46,28 @@ public class MixinLoader {
         mods.stream().filter(mod -> mod.getModId().equals("recipestages")).findFirst().ifPresent(modContainer -> {
             if ( modContainer.getVersion().equals("1.1.1")) {
                 Mixins.addConfiguration("mixins.mzz.recipestages.v1.json");
+            }
+        });
+        mods.stream().filter(mod -> mod.getModId().equals("modularmachinery")).findFirst().ifPresent(modContainer -> {
+            VersionRange versionRange = null;
+            try {
+                versionRange = VersionRange.createFromVersionSpec("[1.4.0,]"); // Tested against 1.9.4
+            } catch (InvalidVersionSpecificationException e) {
+                e.printStackTrace();
+            }
+            if (versionRange != null && versionRange.containsVersion(modContainer.getProcessedVersion())) {
+                Mixins.addConfiguration("mixins.mzz.modularmachinery.v1.json");
+            }
+        });
+        mods.stream().filter(mod -> mod.getModId().equals("thermalexpansion")).findFirst().ifPresent(modContainer -> {
+            VersionRange versionRange = null; // Tested against 5.5.0
+            try {
+                versionRange = VersionRange.createFromVersionSpec("[5.3.8,]");
+            } catch (InvalidVersionSpecificationException e) {
+                e.printStackTrace();
+            }
+            if (versionRange != null && versionRange.containsVersion(modContainer.getProcessedVersion())) {
+                Mixins.addConfiguration("mixins.mzz.thermalexpansion.v1.json");
             }
         });
 

@@ -3,7 +3,7 @@ package xyz.ajp.makezoomzoom;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 
-@Mod(modid="makezoomzoom", name="Make Zoom Zoom", version="0.0.3")
+@Mod(modid="makezoomzoom", name="Make Zoom Zoom", version="0.0.4")
 public class MakeZoomZoom {
     @Mod.EventHandler
     public static void preInit(FMLConstructionEvent event) {

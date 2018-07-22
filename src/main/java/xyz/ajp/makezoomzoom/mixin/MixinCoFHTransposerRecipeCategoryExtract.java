@@ -1,6 +1,7 @@
-package xyz.ajp.makezoomzoom.asmreimpl.cofh.thermalexpansion.plugins.jei.machine.transposer;
+package xyz.ajp.makezoomzoom.mixin;
 
 import cofh.thermalexpansion.plugins.jei.RecipeUidsTE;
+import cofh.thermalexpansion.plugins.jei.machine.transposer.TransposerRecipeCategoryExtract;
 import cofh.thermalexpansion.plugins.jei.machine.transposer.TransposerRecipeWrapper;
 import cofh.thermalexpansion.util.managers.machine.TransposerManager;
 import mezz.jei.api.IGuiHelper;
@@ -11,18 +12,26 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import xyz.ajp.makezoomzoom.asmutil.MZZThreadFactory;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-public class TransposerRecipeCategoryExtract {
-    private static ExecutorService executorService = Executors.newFixedThreadPool(64, new MZZThreadFactory("JEI CoFH Transposer Extract"));
+@Mixin(TransposerRecipeCategoryExtract.class)
+public class MixinCoFHTransposerRecipeCategoryExtract {
+    private static ExecutorService executorService;
 
+    @Overwrite
     public static List<TransposerRecipeWrapper> getRecipes(IGuiHelper guiHelper, IIngredientRegistry ingredientRegistry) {
+        executorService = Executors.newFixedThreadPool(64, new MZZThreadFactory("JEI CoFH Transposer Extract"));
         Queue<Future<TransposerRecipeWrapper>> wrapperFutures = new ArrayDeque<>(64);
 
         List<TransposerRecipeWrapper> recipes = new ArrayList<>();
@@ -70,7 +79,7 @@ public class TransposerRecipeCategoryExtract {
         return executorService.submit(() -> {
             ItemStack filledStack = baseStack.copy();
             IFluidHandlerItem handler = filledStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-            int fill = handler.fill(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
+            int fill = handler != null ? handler.fill(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true) : 0;
 
             if (fill > 0) {
                 filledStack = handler.getContainer().copy();
