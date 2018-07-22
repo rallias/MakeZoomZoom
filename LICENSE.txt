@@ -1,6 +1,6 @@
 It's yours to do with as you please. Follow the sub-licensed code's licenses, and you'll have no issues from me.
 
-xyz.ajp.makezoomzoom.asmreimpl.cofh.* uses code derived from Thermal Expansion, available at https://github.com/CoFH/ThermalExpansion and licensed under CoFH's DBaJ license.
+xyz.ajp.makezoomzoom.asmreimpl.cofh.* and xyz.ajp.makezoomzoom.mixin.MixinCoFHTransposerRecipeCategoryExtract use code derived from Thermal Expansion, available at https://github.com/CoFH/ThermalExpansion and licensed under CoFH's DBaJ license.
 
 xyz.ajp.makezoomzoom.asmreimpl.forestry.* uses code derived from Forestry, available at https://github.com/ForestryMC/ForestryMC and licensed under LGPLv3.0
 
@@ -9,6 +9,10 @@ xyz.ajp.makezoomzoom.asmutil.squeek502.* uses code from ASMHelper, available at 
 xyz.ajp.makezoomzoom.mixin.MixinItemMaterialHeuristics uses code from CharsetLib, available at https://github.com/CharsetMC/Charset and licensed under the LGPLv3 license.
 
 xyz.ajp.makezoomzoom.mixin.MixinLoader uses code derived from JustEnoughIDs, available at https://github.com/DimensionalDevelopment/JustEnoughIDs and licensed under the MIT license.
+
+xyz.ajp.makezoomzoom.mixin.MixinRecipeStagesRecipes uses code derived from Recipe Stages, available at https://github.com/jaredlll08/RecipeStages and licensed under the LGPLv2.1 license.
+
+xyz.ajp.makezoomzoom.mixin.MixinModularMachineryFuelItemHelper uses code derived from Modular Machines, available at https://github.com/HellFirePvP/ModularMachinery and licensed under the GPLv3 license.
 
 MakeZoomZoom automatically includes "jOOR - Fluent Reflection In Java", from https://github.com/jOOQ/jOOR and licensed under the Apache License v2.0
 
