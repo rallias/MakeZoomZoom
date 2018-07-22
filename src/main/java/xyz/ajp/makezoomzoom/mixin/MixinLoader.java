@@ -41,6 +41,11 @@ public class MixinLoader {
 
         // Add and reload mixin configs
         Mixins.addConfiguration("mixins.mzz.charsetv1.json");
+        mods.stream().filter(mod -> mod.getModId().equals("recipestages")).findFirst().ifPresent(modContainer -> {
+            if ( modContainer.getVersion().equals("1.1.1")) {
+                Mixins.addConfiguration("mixins.mzz.recipestages.v1.json");
+            }
+        });
 
         // TODO: Only do this stuff if the hash matches.
 
